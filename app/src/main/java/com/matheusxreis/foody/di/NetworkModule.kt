@@ -1,7 +1,7 @@
 package com.matheusxreis.foody.di
 
 import com.matheusxreis.foody.Constants
-import com.matheusxreis.foody.FoodRecipesApi
+import com.matheusxreis.foody.data.network.FoodRecipesApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,7 +49,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit):FoodRecipesApi {
+    fun provideApiService(retrofit: Retrofit): FoodRecipesApi {
         return retrofit.create(FoodRecipesApi::class.java)
     }
 }

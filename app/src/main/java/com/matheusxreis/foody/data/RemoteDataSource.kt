@@ -1,5 +1,6 @@
-package com.matheusxreis.foody
+package com.matheusxreis.foody.data
 
+import com.matheusxreis.foody.data.network.FoodRecipesApi
 import com.matheusxreis.foody.models.FoodRecipe
 import retrofit2.Response
 import javax.inject.Inject
