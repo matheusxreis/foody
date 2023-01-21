@@ -1,6 +1,6 @@
 package com.matheusxreis.foody.di
 
-import com.matheusxreis.foody.Constants
+import com.matheusxreis.foody.utils.Constants
 import com.matheusxreis.foody.data.network.FoodRecipesApi
 import dagger.Module
 import dagger.Provides
