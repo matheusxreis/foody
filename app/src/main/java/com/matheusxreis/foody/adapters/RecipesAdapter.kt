@@ -2,10 +2,12 @@ package com.matheusxreis.foody.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.matheusxreis.foody.databinding.RecipesRowLayoutBinding
 import com.matheusxreis.foody.models.FoodRecipe
 import com.matheusxreis.foody.models.Result
+import com.matheusxreis.foody.utils.RecipesDiffUtil
 
 // adapter is a structural design pattern that allows objects with incompatible interfaces to collaborate
 class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
@@ -50,7 +52,16 @@ class RecipesAdapter : RecyclerView.Adapter<RecipesAdapter.MyViewHolder>() {
 
     // this method created by me, must populate the recycler view
     fun setData(newData: FoodRecipe) {
+        // with this DiffUtil logic, only the views are not the same
+        // are be updated
+        val recipesDiffUtil = RecipesDiffUtil(recipe, newData.results)
+        val diffUtilResult = DiffUtil.calculateDiff(recipesDiffUtil)
         recipe = newData.results
-        notifyDataSetChanged()
+        diffUtilResult.dispatchUpdatesTo(this)
+        // notifyDataSetChanged() is not very performatic
+        // each time that it is called, it change all list
+        // without verify if a item changed or not
+        // because of this is better use RecipesDiffUtil
+        // notifyDataSetChanged()
     }
 }
