@@ -9,6 +9,6 @@ import com.matheusxreis.foody.utils.Constants
 class RecipesEntity(
     var foodRecipe: FoodRecipe
 ){
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = false)  // -> this table will have just one row
     var id:Int = 0
 }
