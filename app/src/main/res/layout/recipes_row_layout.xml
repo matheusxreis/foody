@@ -112,6 +112,7 @@
                     app:tint="@color/yellow" />
 
                 <TextView
+                    setNumberOfMinutes="@{result.readyInMinutes}"
                     android:id="@+id/clock_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -123,6 +124,7 @@
                     app:layout_constraintTop_toBottomOf="@id/clock_icon" />
 
                 <ImageView
+                    applyVeganColor="@{result.vegan}"
                     android:id="@+id/leaf_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -133,6 +135,7 @@
                     app:tint="@color/darkGray" />
 
                 <TextView
+                    applyVeganColor="@{result.vegan}"
                     android:id="@+id/leaf_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
