@@ -74,7 +74,7 @@ class RecipesFragment : Fragment() {
         queries["type"] = "snack"
         queries["diet"] = "vegan"
         queries["addRecipeInformation"] = "true"
-        queries["fillIngredients"] = "true"
+        queries["fillIngredient"] = "true"
 
         return queries
     }
