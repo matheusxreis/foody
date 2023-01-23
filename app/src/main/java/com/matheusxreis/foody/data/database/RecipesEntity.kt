@@ -1,4 +1,4 @@
-package com.matheusxreis.foody
+package com.matheusxreis.foody.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

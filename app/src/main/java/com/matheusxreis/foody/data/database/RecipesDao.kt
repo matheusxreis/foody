@@ -1,4 +1,4 @@
-package com.matheusxreis.foody
+package com.matheusxreis.foody.data.database
 
 import androidx.room.Dao
 import androidx.room.Insert

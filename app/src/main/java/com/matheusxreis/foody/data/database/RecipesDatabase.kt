@@ -1,4 +1,4 @@
-package com.matheusxreis.foody
+package com.matheusxreis.foody.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -12,5 +12,5 @@ import androidx.room.TypeConverters
 @TypeConverters(RecipesTypeConverter::class)
 abstract class RecipesDatabase:RoomDatabase() {
 
-    abstract fun recipesDao():RecipesDao
+    abstract fun recipesDao(): RecipesDao
 }
