@@ -13,6 +13,7 @@ import com.matheusxreis.foody.viewmodels.MainViewModel
 import com.matheusxreis.foody.R
 import com.matheusxreis.foody.adapters.RecipesAdapter
 import com.matheusxreis.foody.utils.NetworkResult
+import com.matheusxreis.foody.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
 
@@ -24,7 +25,16 @@ class RecipesFragment : Fragment() {
         RecipesAdapter()
     }
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var recipesViewModel: RecipesViewModel
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // called before to create the view
+        mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+        recipesViewModel = ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
+
+
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,17 +42,14 @@ class RecipesFragment : Fragment() {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_recipes, container, false)
 
-        mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
-
 
         setupRecyclerView()
         requestApiData()
 
         return mView
     }
-
     private fun requestApiData() {
-        mainViewModel.getRecipes(applyQueries())
+        mainViewModel.getRecipes(recipesViewModel.applyQueries())
 
         mainViewModel.recipesResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -65,26 +72,11 @@ class RecipesFragment : Fragment() {
         }
 
     }
-
-    private fun applyQueries(): HashMap<String, String> {
-        val queries: HashMap<String, String> = HashMap()
-
-        queries["number"] = "50"
-        queries["apiKey"] = BuildConfig.apiKey
-        queries["type"] = "snack"
-        queries["diet"] = "vegan"
-        queries["addRecipeInformation"] = "true"
-        queries["fillIngredient"] = "true"
-
-        return queries
-    }
-
     private fun setupRecyclerView() {
         mView.shimmer_recycler_view.adapter = mAdapter
         mView.shimmer_recycler_view.layoutManager = LinearLayoutManager(requireContext())
         showShimmerEffect()
     }
-
     private fun showShimmerEffect() {
         mView.shimmer_recycler_view.showShimmer()
     }
