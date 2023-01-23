@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.matheusxreis.foody.BuildConfig
-import com.matheusxreis.foody.MainViewModel
+import com.matheusxreis.foody.viewmodels.MainViewModel
 import com.matheusxreis.foody.R
 import com.matheusxreis.foody.adapters.RecipesAdapter
 import com.matheusxreis.foody.utils.NetworkResult

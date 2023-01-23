@@ -1,4 +1,4 @@
-package com.matheusxreis.foody
+package com.matheusxreis.foody.viewmodels
 
 import android.app.Application
 import android.content.Context
