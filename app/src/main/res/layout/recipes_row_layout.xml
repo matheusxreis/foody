@@ -26,6 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:strokeColor="@color/lightMediumGray"
             app:strokeWidth="1dp">
 
@@ -47,11 +48,12 @@
 
                 <TextView
                     android:id="@+id/recipe_title_tv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:layout_marginTop="12dp"
                     android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
                     android:fontFamily="@font/courgette"
                     android:maxLines="2"
                     android:text="@{result.title}"
@@ -72,7 +74,7 @@
                     android:maxLines="3"
                     android:text="@{result.summary}"
                     android:textColor="@color/darkGray"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/recipe_title_tv"
                     app:layout_constraintStart_toStartOf="@id/recipe_title_tv"
                     app:layout_constraintTop_toBottomOf="@id/recipe_title_tv" />
 
