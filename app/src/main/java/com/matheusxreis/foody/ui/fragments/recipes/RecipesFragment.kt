@@ -1,29 +1,28 @@
 package com.matheusxreis.foody.ui.fragments.recipes
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.matheusxreis.foody.BuildConfig
-import com.matheusxreis.foody.viewmodels.MainViewModel
-import com.matheusxreis.foody.R
 import com.matheusxreis.foody.adapters.RecipesAdapter
+import com.matheusxreis.foody.databinding.FragmentRecipesBinding
 import com.matheusxreis.foody.utils.NetworkResult
 import com.matheusxreis.foody.utils.observeOnce
+import com.matheusxreis.foody.viewmodels.MainViewModel
 import com.matheusxreis.foody.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RecipesFragment : Fragment() {
 
-    private lateinit var mView: View
+    private var _binding: FragmentRecipesBinding? = null
+    private val binding get() = _binding!!
     private val mAdapter by lazy {
         RecipesAdapter()
     }
@@ -43,17 +42,23 @@ class RecipesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.fragment_recipes, container, false)
-
+        _binding = FragmentRecipesBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.mainViewModel = mainViewModel //variable in xml
 
         setupRecyclerView()
          readDatabase()
-        return mView
+        return binding.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        _binding = null
+    }
     private fun setupRecyclerView() {
-        mView.shimmer_recycler_view.adapter = mAdapter
-        mView.shimmer_recycler_view.layoutManager = LinearLayoutManager(requireContext())
+        binding.shimmerRecyclerView.adapter = mAdapter
+        binding.shimmerRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         showShimmerEffect()
     }
 
@@ -108,11 +113,11 @@ class RecipesFragment : Fragment() {
     }
 
     private fun showShimmerEffect() {
-        mView.shimmer_recycler_view.showShimmer()
+        binding.shimmerRecyclerView.showShimmer()
     }
 
     private fun hideShimmerEffect() {
-        mView.shimmer_recycler_view.hideShimmer()
+        binding.shimmerRecyclerView.hideShimmer()
     }
 
 }
