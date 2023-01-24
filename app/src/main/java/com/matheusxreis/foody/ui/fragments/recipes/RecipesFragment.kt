@@ -44,10 +44,21 @@ class RecipesFragment : Fragment() {
 
 
         setupRecyclerView()
-        requestApiData()
-
+         readDatabase()
         return mView
     }
+
+    private fun readDatabase() {
+        mainViewModel.readRecipes.observe(viewLifecycleOwner) { database ->
+            if(database.isNotEmpty()){
+                mAdapter.setData(database[0].foodRecipe)
+                hideShimmerEffect()
+            }else {
+                requestApiData()
+            }
+        }
+    }
+
     private fun requestApiData() {
         mainViewModel.getRecipes(recipesViewModel.applyQueries())
 
