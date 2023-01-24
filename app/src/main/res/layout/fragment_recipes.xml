@@ -47,6 +47,8 @@
             android:focusable="true" />
 
         <ImageView
+            readApiResponse="@{mainViewModel.recipesResponse}"
+            readDatabase="@{mainViewModel.readRecipes}"
             android:id="@+id/error_image_view"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -60,6 +62,8 @@
             android:visibility="invisible" />
 
         <TextView
+            readApiResponse2="@{mainViewModel.recipesResponse}"
+            readDatabase2="@{mainViewModel.readRecipes}"
             android:id="@+id/error_text_view"
             android:alpha="0.2"
             android:textStyle="bold"
