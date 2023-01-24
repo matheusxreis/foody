@@ -90,6 +90,15 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
 
+    // lifecyle
+    def ktxLifecycleVersion = '2.2.0'
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$ktxLifecycleVersion"
+
+    // coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+
+
 }
 
 kapt {
