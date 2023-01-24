@@ -20,6 +20,7 @@ class RecipesRowBinding {
         ){
             imageView.load(imageUrl) {
                 crossfade(600)
+                error(R.drawable.ic_placeholder_error)
             }
         }
         @BindingAdapter("setNumberOfLikes")
