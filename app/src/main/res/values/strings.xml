@@ -20,4 +20,14 @@
     <string name="fingerfood">Fingerfood</string>
     <string name="snack">Snack</string>
     <string name="drink">Drink</string>
+    <string name="diet_type">Diet Type</string>
+    <string name="gluten_free">Gluten Free</string>
+    <string name="ketogenic">Ketogenic</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="vegan">Vegan</string>
+    <string name="pescetarian">Pescetarian</string>
+    <string name="paleo">Paleo</string>
+    <string name="primal">Primal</string>
+    <string name="whole_30">Whole 30</string>
+    <string name="apply">Apply</string>
 </resources>
