@@ -8,7 +8,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.matheusxreis.foody.R
 import com.matheusxreis.foody.adapters.RecipesAdapter
 import com.matheusxreis.foody.databinding.FragmentRecipesBinding
 import com.matheusxreis.foody.utils.NetworkResult
@@ -48,6 +50,12 @@ class RecipesFragment : Fragment() {
 
         setupRecyclerView()
          readDatabase()
+
+        binding.fab.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_recipesFragment_to_recipesBottomSheet,
+            )
+        }
         return binding.root
     }
 
