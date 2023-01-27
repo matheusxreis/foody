@@ -4,7 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.MenuProvider
@@ -44,20 +44,21 @@ class RecipesFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.recipes_menu, menu)
+
+        val search = menu.findItem(R.id.menu_search)
+        val searchView = search.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        if(menuItem.itemId == R.id.menu_search) {
 
-            val searchView = menuItem.actionView as? SearchView
-            searchView?.isSubmitButtonEnabled = true
-            searchView?.setOnQueryTextListener(this)
 
-        }
         return true
     }
 
     override fun onQueryTextSubmit(p0: String?): Boolean {
+        Log.d("querysubimt", p0.toString())
         if(p0 != null){
             searchApiData(p0)
         }
