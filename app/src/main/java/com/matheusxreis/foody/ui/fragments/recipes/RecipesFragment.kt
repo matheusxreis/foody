@@ -3,11 +3,11 @@ package com.matheusxreis.foody.ui.fragments.recipes
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -27,7 +27,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RecipesFragment : Fragment() {
+class RecipesFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
 
     private val args by navArgs<RecipesFragmentArgs>()
 
@@ -39,6 +39,30 @@ class RecipesFragment : Fragment() {
     private lateinit var mainViewModel: MainViewModel
     private lateinit var recipesViewModel: RecipesViewModel
     private lateinit var networkListener: NetworkListener
+
+
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.recipes_menu, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        if(menuItem.itemId == R.id.menu_search) {
+
+            val searchView = menuItem.actionView as? SearchView
+            searchView?.isSubmitButtonEnabled = true
+            searchView?.setOnQueryTextListener(this)
+
+        }
+        return true
+    }
+
+    override fun onQueryTextSubmit(p0: String?): Boolean {
+       return true
+    }
+    override fun onQueryTextChange(p0: String?): Boolean {
+        return true
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +81,7 @@ class RecipesFragment : Fragment() {
         _binding = FragmentRecipesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.mainViewModel = mainViewModel //variable in xml
-
+        requireActivity().addMenuProvider(this, viewLifecycleOwner)
         setupRecyclerView()
 
         recipesViewModel.readBackOnline.observe(viewLifecycleOwner) {
@@ -88,6 +112,10 @@ class RecipesFragment : Fragment() {
         return binding.root
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+    }
     override fun onDestroy() {
         super.onDestroy()
 
@@ -156,5 +184,7 @@ class RecipesFragment : Fragment() {
     private fun hideShimmerEffect() {
         binding.shimmerRecyclerView.hideShimmer()
     }
+
+
 
 }
