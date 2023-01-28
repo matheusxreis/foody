@@ -51,6 +51,8 @@ class DetailsActivity : AppCompatActivity() {
         )
 
         view_pager.adapter = adapter
+        // the tab layout is just to view fragments title
+        // who is responsable by slide between the fragments is the view pager2
         TabLayoutMediator(tab_layout, view_pager) {
             tab, position -> tab.text = titles[position]
         }.attach()
