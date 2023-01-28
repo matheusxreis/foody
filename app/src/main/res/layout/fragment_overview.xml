@@ -30,7 +30,7 @@
         />
     <TextView
         android:id="@+id/time_tv"
-        tools:text="100"
+        android:text="100"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/image_view_food"
@@ -55,7 +55,7 @@
 
     <TextView
         android:id="@+id/likes_tv"
-        tools:text="100"
+        android:text="100"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/time_tv"
@@ -79,7 +79,7 @@
     
     <TextView
         android:id="@+id/title_tv"
-        tools:text="Title"
+        android:text="Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -245,7 +245,9 @@
                 android:id="@+id/summary_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Description"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ex dui, volutpat vel nulla ac, vehicula egestas magna. Donec eget velit at velit porta suscipit. Curabitur efficitur convallis vestibulum. Quisque elementum nisl id semper suscipit. Cras maximus, magna eu suscipit venenatis, turpis mi imperdiet urna, sed varius erat nisi nec nunc. Donec pulvinar odio quis tincidunt volutpat. Phasellus a purus massa.
+
+Donec varius, enim ac pharetra auctor, enim dolor feugiat erat, a malesuada odio est vitae est. Donec eget scelerisque augue. Morbi fermentum dictum ligula, eu tincidunt nisl. Mauris tempor dolor vitae fermentum ultrices. Mauris nisi enim, efficitur at condimentum sed, mattis nec felis. Donec accumsan, arcu non scelerisque tristique, leo enim semper mi, nec pellentesque ante diam at libero. Duis magna enim, varius eu venenatis a, malesuada suscipit tortor. Vestibulum ante tellus, gravida eget luctus vel, vulputate a odio. Sed viverra et orci vitae ultrices. "
                 android:textSize="16sp"
                 />
 
