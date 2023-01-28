@@ -12,6 +12,7 @@ import coil.load
 import com.matheusxreis.foody.R
 import com.matheusxreis.foody.models.Result
 import kotlinx.android.synthetic.main.fragment_overview.view.*
+import org.jsoup.Jsoup
 
 class OverviewFragment : Fragment() {
 
@@ -36,7 +37,10 @@ class OverviewFragment : Fragment() {
         mView.title_tv.text = myBundle?.title
         mView.likes_tv.text = myBundle?.aggregateLikes.toString()
         mView.time_tv.text = myBundle?.readyInMinutes.toString()
-        mView.summary_tv.text = myBundle?.summary
+        myBundle?.summary.let {
+            val summary = Jsoup.parse(it).text()
+            mView.summary_tv.text = summary
+        }
 
         setColorCategories(myBundle?.vegetarian, mView.vegetarian_image_view, mView.vegetarian_tv)
         setColorCategories(myBundle?.vegan, mView.vegan_image_view, mView.vegan_tv)
