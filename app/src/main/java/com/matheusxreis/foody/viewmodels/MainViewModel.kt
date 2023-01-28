@@ -74,14 +74,14 @@ class MainViewModel @Inject constructor(
         if(hasInternetConnection()){
             try {
                 val response = repository.remote.searchRecipes(searchQueries);
-                recipesResponse.value = handleFoodRecipesResponse(response)
+                searchedRecipesResponse.value = handleFoodRecipesResponse(response)
 
             }catch(e:Exception){
-                recipesResponse.value = NetworkResult.Error("Recipes not found")
+                searchedRecipesResponse.value = NetworkResult.Error("Recipes not found")
             }
 
         }else {
-            recipesResponse.value = NetworkResult.Error("No Internet Connection.")
+            searchedRecipesResponse.value = NetworkResult.Error("No Internet Connection.")
         }
     }
 
