@@ -24,4 +24,11 @@
     </style>
 
 
+    <style name="DetailsActivityStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorAccent</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+    </style>
 </resources>
