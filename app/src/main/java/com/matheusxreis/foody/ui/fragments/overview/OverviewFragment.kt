@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import coil.load
 import com.matheusxreis.foody.R
 import com.matheusxreis.foody.models.Result
+import com.matheusxreis.foody.utils.Constants
 import kotlinx.android.synthetic.main.fragment_overview.view.*
 import org.jsoup.Jsoup
 
@@ -30,7 +31,7 @@ class OverviewFragment : Fragment() {
 
 
         val args = arguments
-        val myBundle: Result? = args?.getParcelable("recipeBundle")
+        val myBundle: Result? = args?.getParcelable(Constants.RECIPE_RESULT_KEY)
 
 
         mView.image_view_food.load(myBundle?.image)
