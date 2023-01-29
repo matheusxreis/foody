@@ -1,9 +1,12 @@
 package com.matheusxreis.foody.ui
 
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.navArgs
@@ -66,5 +69,18 @@ class DetailsActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.details_menu, menu)
+
+        var drawable = menu?.findItem(R.id.save_to_favorite_menu)?.icon
+        if(drawable != null){
+          drawable = DrawableCompat.wrap(drawable)
+            DrawableCompat.setTint(drawable, ContextCompat.getColor(this, R.color.white))
+            menu?.findItem(R.id.save_to_favorite_menu)?.setIcon(drawable)
+        }
+
+        return true
     }
 }
