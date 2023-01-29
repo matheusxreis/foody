@@ -32,6 +32,9 @@ class DetailsActivity : AppCompatActivity() {
     private val args by navArgs<DetailsActivityArgs>()
     private val mainViewModel: MainViewModel by viewModels()
 
+    private var recipeSaved = false;
+    private var savedRecipeId = 0;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
@@ -76,8 +79,10 @@ class DetailsActivity : AppCompatActivity() {
         if (item.itemId === android.R.id.home) {
             //coming back
             finish()
-        } else if (item.itemId === R.id.save_to_favorite_menu) {
+        } else if (item.itemId === R.id.save_to_favorite_menu && !recipeSaved) {
             saveToFavorites(item)
+        } else if(item.itemId === R.id.save_to_favorite_menu && recipeSaved){
+            removeFromFavorite(item)
         }
         return super.onOptionsItemSelected(item)
 
@@ -92,6 +97,17 @@ class DetailsActivity : AppCompatActivity() {
 
         changeMenuItemColor(item, R.color.yellow)
         showSnackBar("Recipe saved.")
+        recipeSaved = true
+    }
+    private fun removeFromFavorite(item:MenuItem){
+        val favoritesEntity = FavoritesEntity(
+            savedRecipeId,
+            args.result
+        )
+        mainViewModel.deleteFavoriteRecipe(favoritesEntity)
+        changeMenuItemColor(item, R.color.white)
+        showSnackBar("Removed from favorites")
+        recipeSaved = false
     }
 
     private fun showSnackBar(message: String) {
@@ -114,6 +130,7 @@ class DetailsActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.details_menu, menu)
         val menuItem = menu?.findItem(R.id.save_to_favorite_menu)
+        changeMenuItemColor(menuItem!!, R.color.white)
         checkSavedRecipes(menuItem!!)
         return true
     }
@@ -125,6 +142,8 @@ class DetailsActivity : AppCompatActivity() {
                 for(savedRecipe in favoritesEntity){
                     if(savedRecipe.result.id == args.result.id){
                         changeMenuItemColor(menuItem, R.color.yellow)
+                        savedRecipeId = savedRecipe.id
+                        recipeSaved = true
                     }else {
                         changeMenuItemColor(menuItem, R.color.white)
                     }
