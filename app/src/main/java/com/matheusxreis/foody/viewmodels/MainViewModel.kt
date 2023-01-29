@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.*
 import com.matheusxreis.foody.data.Repository
+import com.matheusxreis.foody.data.database.entities.FavoritesEntity
 import com.matheusxreis.foody.data.database.entities.RecipesEntity
 import com.matheusxreis.foody.models.FoodRecipe
 import com.matheusxreis.foody.utils.NetworkResult
@@ -23,15 +24,29 @@ class MainViewModel @Inject constructor(
     // room **
 
     val readRecipes: LiveData<List<RecipesEntity>> = repository.local.readRecipes().asLiveData()
+    val readFavoriteRecipe: LiveData<List<FavoritesEntity>> = repository.local.readFavoriteRecipes().asLiveData()
 
     private fun insertRecipes(recipesEntity: RecipesEntity) = viewModelScope.launch(Dispatchers.IO){
         repository.local.insertRecipes(recipesEntity)
     }
 
+    private fun insertFavoriteRecipe(favoritesEntity: FavoritesEntity) = viewModelScope.launch (Dispatchers.IO) {
+        repository.local.insertFavoriteRecipe(favoritesEntity)
+    }
+    private fun deleteFavoriteRecipe(favoritesEntity: FavoritesEntity) = viewModelScope.launch (Dispatchers.IO) {
+        repository.local.deleteFavoriteRecipe(favoritesEntity)
+    }
+    private fun deleteAllFavoriteRecipes() = viewModelScope.launch (Dispatchers.IO) {
+        repository.local.deleteAllFavoriteRecipes()
+    }
+
+
     private fun offlineCacheRecipes(foodRecipe: FoodRecipe) {
         val recipesEntity = RecipesEntity(foodRecipe)
         insertRecipes(recipesEntity)
     }
+
+
 
     // retrofit ***
     var recipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
