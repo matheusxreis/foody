@@ -26,7 +26,10 @@ class IngredientsAdapter: RecyclerView.Adapter<IngredientsAdapter.MyViewHolder>(
 
         val currentIngredient = ingredientsList[position]
         val itemView = holder.itemView
-        itemView.ingredient_image_view.load(Constants.BASE_IMAGE_URL+currentIngredient.image)
+        itemView.ingredient_image_view.load(Constants.BASE_IMAGE_URL+currentIngredient.image) {
+            crossfade(600)
+            error(R.drawable.ic_placeholder_error )
+        }
         itemView.ingredient_title_tv.text = currentIngredient.name.capitalize()
         itemView.ingredient_amount_tv.text = currentIngredient.amount.toString()
         itemView.ingredient_unit_tv.text = currentIngredient.unit
