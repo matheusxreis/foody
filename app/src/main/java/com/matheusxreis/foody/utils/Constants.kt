@@ -7,6 +7,7 @@ class Constants {
     companion object {
         const val API_KEY= BuildConfig.apiKey
         const val BASE_URL="https://api.spoonacular.com"
+        const val BASE_IMAGE_URL = "https://spoonacular.com/cdn/ingredients_100x100/"
 
         // API Query keys
         const val QUERY_SEARCH = "query"
