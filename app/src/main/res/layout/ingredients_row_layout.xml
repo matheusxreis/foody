@@ -42,13 +42,14 @@
                 app:layout_constraintEnd_toEndOf="@id/white_background"
                 app:layout_constraintTop_toTopOf="@id/white_background"
                 app:layout_constraintBottom_toBottomOf="@id/white_background"
-                android:scaleType="centerCrop"
                 />
 
             <TextView
                 android:id="@+id/ingredient_title_tv"
-                android:text="Title"
-                android:layout_width="wrap_content"
+                android:text="Title Title Title Title Title Title Title Title  Title"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@id/white_background"
                 app:layout_constraintEnd_toEndOf="parent"
