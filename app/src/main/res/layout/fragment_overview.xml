@@ -28,19 +28,19 @@
         app:layout_constraintTop_toTopOf="@id/image_view_food"
         app:layout_constraintVertical_bias="1"
         />
+
     <TextView
         android:id="@+id/time_tv"
-        android:text="100"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/image_view_food"
-        app:layout_constraintEnd_toEndOf="@id/image_view_food"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="12dp"
+        android:text="100"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
-        />
+        app:layout_constraintBottom_toBottomOf="@id/image_view_food"
+        app:layout_constraintEnd_toEndOf="@id/image_view_food" />
     <ImageView
         android:id="@+id/time_image_view"
         android:layout_width="wrap_content"
@@ -55,16 +55,15 @@
 
     <TextView
         android:id="@+id/likes_tv"
-        android:text="100"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/time_tv"
-        app:layout_constraintEnd_toStartOf="@id/time_tv"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="32dp"
+        android:text="100"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
-        />
+        app:layout_constraintBottom_toBottomOf="@id/time_tv"
+        app:layout_constraintEnd_toStartOf="@id/time_tv" />
     <ImageView
         android:id="@+id/likes_image_view"
         android:layout_width="wrap_content"

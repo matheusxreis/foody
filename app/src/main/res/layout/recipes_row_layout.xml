@@ -62,7 +62,6 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@id/recipe_image_view"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,10 +87,8 @@
                     android:src="@drawable/ic_heart"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@id/heart_description"
-                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@id/heart_description"
                     app:layout_constraintTop_toBottomOf="@id/recipe_description_tv"
-                    app:layout_constraintVertical_bias="0.0"
                     app:tint="@color/red" />
 
                 <TextView
