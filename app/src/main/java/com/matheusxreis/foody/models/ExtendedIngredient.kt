@@ -12,11 +12,11 @@ data class ExtendedIngredient(
     @SerializedName("consistency")
     val consistency: String,
     @SerializedName("image")
-    val image: String,
+    val image: String?,
     @SerializedName("name")
     val name: String,
     @SerializedName("nameClean")
-    val original: String,
+    val original: String?,
     @SerializedName("unit")
     val unit: String
 ):Parcelable

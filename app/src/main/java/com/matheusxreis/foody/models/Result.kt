@@ -22,7 +22,7 @@ data class Result(
     @SerializedName("id")
     val id: Int,
     @SerializedName("image")
-    val image: String,
+    val image: String?,
     @SerializedName("license")
     val license: String?,
     @SerializedName("likes")
