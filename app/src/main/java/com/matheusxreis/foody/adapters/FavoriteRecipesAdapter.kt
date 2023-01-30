@@ -18,7 +18,13 @@ class FavoriteRecipesAdapter(
     private val requireActivity: FragmentActivity
 ) : RecyclerView.Adapter<FavoriteRecipesAdapter.MyViewHolder>(), ActionMode.Callback {
 
+    private var multiSelection = false
+    private var selectedRecipes = arrayListOf<FavoritesEntity>()
+    private var myViewHolders = arrayListOf<MyViewHolder>()
+
     private var favoriteRecipes = emptyList<FavoritesEntity>()
+
+
 
     class MyViewHolder(private val binding: FavoriteRecipesRowLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -43,6 +49,9 @@ class FavoriteRecipesAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+
+        myViewHolders.add(holder)
+
         val currentFavoriteRecipe = favoriteRecipes[position]
         holder.bind(currentFavoriteRecipe)
 
@@ -50,11 +59,15 @@ class FavoriteRecipesAdapter(
         * Single click listener
         * */
         holder.itemView.favorite_recipe_row_layout.setOnClickListener {
-            val action =
-                FavoriteRecipesFragmentDirections.actionFavoriteRecipesFragmentToDetailsActivity(
-                    currentFavoriteRecipe.result
-                )
-            holder.itemView.findNavController().navigate(action)
+            if(multiSelection){
+                applySelection(holder, currentFavoriteRecipe)
+            }else {
+                val action =
+                    FavoriteRecipesFragmentDirections.actionFavoriteRecipesFragmentToDetailsActivity(
+                        currentFavoriteRecipe.result
+                    )
+                holder.itemView.findNavController().navigate(action)
+            }
         }
 
         /*
@@ -62,8 +75,18 @@ class FavoriteRecipesAdapter(
         * */
 
         holder.itemView.favorite_recipe_row_layout.setOnLongClickListener {
-            requireActivity.startActionMode(this)
-            true
+
+            if(!multiSelection){
+                multiSelection = true
+                requireActivity.startActionMode(this)
+                applySelection(holder, currentFavoriteRecipe)
+                true
+            }else {
+                multiSelection = false
+                false
+            }
+
+
         }
     }
 
@@ -78,6 +101,26 @@ class FavoriteRecipesAdapter(
         val diffUtilResult = DiffUtil.calculateDiff(favoriteRecipesDiffUtil)
         favoriteRecipes = newFavoriteRecipes
         diffUtilResult.dispatchUpdatesTo(this)
+    }
+
+    private fun applyStatusBarColor(color: Int) {
+        requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
+    }
+
+    private fun applySelection(holder:MyViewHolder, currentRecipe:FavoritesEntity){
+        if(selectedRecipes.contains(currentRecipe)){
+            selectedRecipes.remove(currentRecipe)
+            changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)
+        }else {
+            selectedRecipes.add(currentRecipe)
+            changeRecipeStyle(holder, R.color.cardBackgroundLightColor, R.color.colorPrimary)
+
+        }
+    }
+    private fun changeRecipeStyle(holder:MyViewHolder, backgroundColor:Int, strokeColor:Int){
+        val itemView = holder.itemView
+        itemView.favorite_recipe_row_layout.setBackgroundColor(ContextCompat.getColor(requireActivity, backgroundColor))
+        itemView.favorite_row_card_view.strokeColor = ContextCompat.getColor(requireActivity, strokeColor)
     }
 
     override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
@@ -96,11 +139,13 @@ class FavoriteRecipesAdapter(
     }
 
     override fun onDestroyActionMode(actionMode: ActionMode?) {
+
+       myViewHolders.forEach { holder ->
+           changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)
+       }
+        multiSelection = false
+        selectedRecipes.clear()
         applyStatusBarColor(R.color.statusBarColor)
-
     }
 
-    private fun applyStatusBarColor(color: Int) {
-        requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
-    }
 }
