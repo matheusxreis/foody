@@ -7,6 +7,7 @@ import android.net.NetworkCapabilities
 import androidx.lifecycle.*
 import com.matheusxreis.foody.data.Repository
 import com.matheusxreis.foody.data.database.entities.FavoritesEntity
+import com.matheusxreis.foody.data.database.entities.FoodJokeEntity
 import com.matheusxreis.foody.data.database.entities.RecipesEntity
 import com.matheusxreis.foody.models.FoodJoke
 import com.matheusxreis.foody.models.FoodRecipe
@@ -26,6 +27,7 @@ class MainViewModel @Inject constructor(
 
     val readRecipes: LiveData<List<RecipesEntity>> = repository.local.readRecipes().asLiveData()
     val readFavoriteRecipe: LiveData<List<FavoritesEntity>> = repository.local.readFavoriteRecipes().asLiveData()
+    val readFoodJoke: LiveData<List<FoodJokeEntity>> = repository.local.readFoodJoke().asLiveData()
 
     private fun insertRecipes(recipesEntity: RecipesEntity) = viewModelScope.launch(Dispatchers.IO){
         repository.local.insertRecipes(recipesEntity)
@@ -34,6 +36,10 @@ class MainViewModel @Inject constructor(
     fun insertFavoriteRecipe(favoritesEntity: FavoritesEntity) = viewModelScope.launch (Dispatchers.IO) {
         repository.local.insertFavoriteRecipe(favoritesEntity)
     }
+
+    fun insertFoodJoke(foodJokeEntity: FoodJokeEntity) = viewModelScope.launch(Dispatchers.IO){
+        repository.local.insertFoodJoke(foodJokeEntity)
+    }
     fun deleteFavoriteRecipe(favoritesEntity: FavoritesEntity) = viewModelScope.launch (Dispatchers.IO) {
         repository.local.deleteFavoriteRecipe(favoritesEntity)
     }
@@ -41,6 +47,12 @@ class MainViewModel @Inject constructor(
         repository.local.deleteAllFavoriteRecipes()
     }
 
+
+
+    private fun offlineCacheFoodJoke(foodJoke: FoodJoke) {
+        val foodJoke = FoodJokeEntity(foodJoke)
+        insertFoodJoke(foodJoke)
+    }
 
     private fun offlineCacheRecipes(foodRecipe: FoodRecipe) {
         val recipesEntity = RecipesEntity(foodRecipe)
@@ -113,6 +125,10 @@ class MainViewModel @Inject constructor(
                 val response = repository.remote.getFoodJoke(apiKey);
                 foodJokeResponse.value = handleFoodJokeResponse(response)
 
+                val foodJoke = foodJokeResponse.value!!.data
+                if(foodJoke != null){
+                    offlineCacheFoodJoke(foodJoke)
+                }
             }catch(e:Exception){
                 foodJokeResponse.value = NetworkResult.Error("Recipes not found")
             }
