@@ -135,6 +135,13 @@ class FavoriteRecipesAdapter(
             0 -> {
                 mActionMode.finish()
             }
+            1 -> {
+                mActionMode.title = "${selectedRecipes.size} item selected"
+            }
+            else -> {
+                mActionMode.title = "${selectedRecipes.size} items selected"
+
+            }
         }
     }
     /// from ActionMode.Callback
