@@ -52,8 +52,6 @@ class RecipesFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-
-
         return true
     }
 
@@ -117,9 +115,6 @@ class RecipesFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener
     }
 
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-    }
     override fun onDestroy() {
         super.onDestroy()
 
