@@ -94,8 +94,8 @@ class FavoriteRecipesAdapter(
                 applySelection(holder, currentFavoriteRecipe)
                 true
             } else {
-                multiSelection = false
-                false
+                multiSelection = true
+                true
             }
 
 
