@@ -1,6 +1,7 @@
 package com.matheusxreis.foody.adapters
 
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -15,19 +16,20 @@ import kotlinx.android.synthetic.main.favorite_recipes_row_layout.view.*
 
 class FavoriteRecipesAdapter(
     private val requireActivity: FragmentActivity
-): RecyclerView.Adapter<FavoriteRecipesAdapter.MyViewHolder>(), ActionMode.Callback {
+) : RecyclerView.Adapter<FavoriteRecipesAdapter.MyViewHolder>(), ActionMode.Callback {
 
     private var favoriteRecipes = emptyList<FavoritesEntity>()
-    class MyViewHolder(private val binding:FavoriteRecipesRowLayoutBinding):
+
+    class MyViewHolder(private val binding: FavoriteRecipesRowLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-            fun bind(favoritesEntity: FavoritesEntity){
-                binding.favoriteEntity = favoritesEntity
-                binding.executePendingBindings()
-            }
+        fun bind(favoritesEntity: FavoritesEntity) {
+            binding.favoriteEntity = favoritesEntity
+            binding.executePendingBindings()
+        }
 
         companion object {
-            fun from(parent: ViewGroup):MyViewHolder{
+            fun from(parent: ViewGroup): MyViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context);
                 val binding = FavoriteRecipesRowLayoutBinding.inflate(layoutInflater, parent, false)
                 return MyViewHolder(binding)
@@ -37,18 +39,21 @@ class FavoriteRecipesAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-       return MyViewHolder.from(parent)
+        return MyViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-         val currentFavoriteRecipe = favoriteRecipes[position]
-         holder.bind(currentFavoriteRecipe)
+        val currentFavoriteRecipe = favoriteRecipes[position]
+        holder.bind(currentFavoriteRecipe)
 
         /*
         * Single click listener
         * */
         holder.itemView.favorite_recipe_row_layout.setOnClickListener {
-            val action = FavoriteRecipesFragmentDirections.actionFavoriteRecipesFragmentToDetailsActivity(currentFavoriteRecipe.result)
+            val action =
+                FavoriteRecipesFragmentDirections.actionFavoriteRecipesFragmentToDetailsActivity(
+                    currentFavoriteRecipe.result
+                )
             holder.itemView.findNavController().navigate(action)
         }
 
@@ -64,11 +69,11 @@ class FavoriteRecipesAdapter(
 
     override fun getItemCount(): Int = favoriteRecipes.size
 
-    fun setData(newFavoriteRecipes:List<FavoritesEntity>){
+    fun setData(newFavoriteRecipes: List<FavoritesEntity>) {
 
         val favoriteRecipesDiffUtil = RecipesDiffUtil(
             oldList = favoriteRecipes,
-            newList =  newFavoriteRecipes
+            newList = newFavoriteRecipes
         )
         val diffUtilResult = DiffUtil.calculateDiff(favoriteRecipesDiffUtil)
         favoriteRecipes = newFavoriteRecipes
@@ -76,8 +81,9 @@ class FavoriteRecipesAdapter(
     }
 
     override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
-       actionMode?.menuInflater?.inflate(R.menu.favorites_contextual_menu, menu)
-       return true
+        actionMode?.menuInflater?.inflate(R.menu.favorites_contextual_menu, menu)
+        applyStatusBarColor(R.color.contextualStatusBarColor)
+        return true
     }
 
     override fun onPrepareActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
@@ -90,5 +96,11 @@ class FavoriteRecipesAdapter(
     }
 
     override fun onDestroyActionMode(actionMode: ActionMode?) {
+        applyStatusBarColor(R.color.statusBarColor)
+
+    }
+
+    private fun applyStatusBarColor(color: Int) {
+        requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
     }
 }
