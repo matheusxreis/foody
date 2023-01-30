@@ -1,13 +1,13 @@
 package com.matheusxreis.foody.ui.fragments.favorites
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.matheusxreis.foody.R
 import com.matheusxreis.foody.adapters.FavoriteRecipesAdapter
 import com.matheusxreis.foody.databinding.FragmentFavoriteRecipesBinding
@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_favorite_recipes.view.*
 
 @AndroidEntryPoint
-class FavoriteRecipesFragment : Fragment() {
+class FavoriteRecipesFragment : Fragment(), MenuProvider {
 
     private val mainViewModel:MainViewModel by viewModels()
     private val mAdapter:FavoriteRecipesAdapter by lazy { FavoriteRecipesAdapter(requireActivity(), mainViewModel) }
@@ -30,6 +30,8 @@ class FavoriteRecipesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
+        requireActivity().addMenuProvider(this, viewLifecycleOwner)
 
         _binding = FragmentFavoriteRecipesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
@@ -51,6 +53,31 @@ class FavoriteRecipesFragment : Fragment() {
     private fun setupRecyclerView(recyclerView: RecyclerView){
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.favorite_recipes_menu, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+      if(menuItem.itemId == R.id.delete_all_favorite_recipes_menu){
+          mainViewModel.deleteAllFavoriteRecipes()
+          when(mainViewModel.readFavoriteRecipe.value.isNullOrEmpty()){
+              true -> showSnackBar("Nothing to remove")
+              else -> showSnackBar("All recipes removed")
+          }
+
+      }
+    return true
+    }
+
+    private fun showSnackBar(message:String){
+        Snackbar.make(
+            binding.root,
+            message,
+            Snackbar.LENGTH_SHORT
+        ).setAction("Okay"){}
+            .show()
     }
 
 
