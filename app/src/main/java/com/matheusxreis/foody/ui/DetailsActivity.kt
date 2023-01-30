@@ -130,12 +130,16 @@ class DetailsActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.details_menu, menu)
         val menuItem = menu?.findItem(R.id.save_to_favorite_menu)
-        changeMenuItemColor(menuItem!!, R.color.white)
+        //changeMenuItemColor(menuItem!!, R.color.white)
         checkSavedRecipes(menuItem!!)
         return true
     }
 
     private fun checkSavedRecipes(menuItem: MenuItem) {
+
+        if(mainViewModel.readRecipes.value.isNullOrEmpty()){
+            changeMenuItemColor(menuItem, R.color.white)
+        }
         mainViewModel.readFavoriteRecipe.observe(this) {
             favoritesEntity ->
             try {
@@ -144,6 +148,7 @@ class DetailsActivity : AppCompatActivity() {
                         changeMenuItemColor(menuItem, R.color.yellow)
                         savedRecipeId = savedRecipe.id
                         recipeSaved = true
+                        return@observe
                     }else {
                         changeMenuItemColor(menuItem, R.color.white)
                     }
@@ -152,5 +157,7 @@ class DetailsActivity : AppCompatActivity() {
                 Log.d("DetailsActivity", e.message.toString())
             }
         }
+
+
     }
 }
