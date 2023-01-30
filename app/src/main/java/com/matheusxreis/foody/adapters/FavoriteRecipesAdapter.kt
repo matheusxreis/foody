@@ -18,9 +18,15 @@ class FavoriteRecipesAdapter(
     private val requireActivity: FragmentActivity
 ) : RecyclerView.Adapter<FavoriteRecipesAdapter.MyViewHolder>(), ActionMode.Callback {
 
+    // to contextual mode variables
+
+    private lateinit var mActionMode: ActionMode;
+
     private var multiSelection = false
     private var selectedRecipes = arrayListOf<FavoritesEntity>()
     private var myViewHolders = arrayListOf<MyViewHolder>()
+    //
+
 
     private var favoriteRecipes = emptyList<FavoritesEntity>()
 
@@ -103,18 +109,19 @@ class FavoriteRecipesAdapter(
         diffUtilResult.dispatchUpdatesTo(this)
     }
 
+    /// change styles in contextual mode
     private fun applyStatusBarColor(color: Int) {
         requireActivity.window.statusBarColor = ContextCompat.getColor(requireActivity, color)
     }
-
     private fun applySelection(holder:MyViewHolder, currentRecipe:FavoritesEntity){
         if(selectedRecipes.contains(currentRecipe)){
             selectedRecipes.remove(currentRecipe)
             changeRecipeStyle(holder, R.color.cardBackgroundColor, R.color.strokeColor)
+            applyActionModeTitle()
         }else {
             selectedRecipes.add(currentRecipe)
             changeRecipeStyle(holder, R.color.cardBackgroundLightColor, R.color.colorPrimary)
-
+            applyActionModeTitle()
         }
     }
     private fun changeRecipeStyle(holder:MyViewHolder, backgroundColor:Int, strokeColor:Int){
@@ -123,8 +130,17 @@ class FavoriteRecipesAdapter(
         itemView.favorite_row_card_view.strokeColor = ContextCompat.getColor(requireActivity, strokeColor)
     }
 
+    private fun applyActionModeTitle(){
+        when(selectedRecipes.size){
+            0 -> {
+                mActionMode.finish()
+            }
+        }
+    }
+    /// from ActionMode.Callback
     override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
         actionMode?.menuInflater?.inflate(R.menu.favorites_contextual_menu, menu)
+        mActionMode = actionMode!!
         applyStatusBarColor(R.color.contextualStatusBarColor)
         return true
     }
