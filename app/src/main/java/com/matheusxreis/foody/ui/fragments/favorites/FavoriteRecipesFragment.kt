@@ -41,14 +41,17 @@ class FavoriteRecipesFragment : Fragment() {
         return binding.root
     }
 
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mAdapter.clearContextualActionMode()
+        _binding = null
+    }
+
     private fun setupRecyclerView(recyclerView: RecyclerView){
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
 
 }

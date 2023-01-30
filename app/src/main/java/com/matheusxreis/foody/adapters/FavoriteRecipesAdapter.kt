@@ -215,4 +215,12 @@ class FavoriteRecipesAdapter(
         applyStatusBarColor(R.color.statusBarColor)
     }
 
+    // close contextual mode
+
+    fun clearContextualActionMode(){
+        if(this::mActionMode.isInitialized){
+            mActionMode.finish()
+        }
+    }
+
 }
