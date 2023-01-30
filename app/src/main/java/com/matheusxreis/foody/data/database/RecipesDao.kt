@@ -2,6 +2,7 @@ package com.matheusxreis.foody.data.database
 
 import androidx.room.*
 import com.matheusxreis.foody.data.database.entities.FavoritesEntity
+import com.matheusxreis.foody.data.database.entities.FoodJokeEntity
 import com.matheusxreis.foody.data.database.entities.RecipesEntity
 import com.matheusxreis.foody.models.FoodJoke
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +18,7 @@ interface RecipesDao {
     suspend fun insertFavoriteRecipe(favoritesEntity: FavoritesEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFoodJoke(foodJoke: FoodJoke)
+    suspend fun insertFoodJoke(foodJoke: FoodJokeEntity)
 
     @Query("SELECT * FROM recipes_table ORDER BY id ASC")
     fun readRecipes(): Flow<List<RecipesEntity>>
