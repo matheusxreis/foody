@@ -66,13 +66,13 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    parseHtml="@{favoriteEntity.result.summary}"
                     android:id="@+id/favorite_recipe_description_tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:ellipsize="end"
                     android:maxLines="3"
-                    android:text="@{favoriteEntity.result.summary}"
                     android:textColor="@color/darkGray"
                     app:layout_constraintEnd_toEndOf="@id/favorite_recipe_title_tv"
                     app:layout_constraintStart_toStartOf="@id/favorite_recipe_title_tv"
