@@ -8,6 +8,7 @@ import androidx.lifecycle.*
 import com.matheusxreis.foody.data.Repository
 import com.matheusxreis.foody.data.database.entities.FavoritesEntity
 import com.matheusxreis.foody.data.database.entities.RecipesEntity
+import com.matheusxreis.foody.models.FoodJoke
 import com.matheusxreis.foody.models.FoodRecipe
 import com.matheusxreis.foody.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -51,15 +52,18 @@ class MainViewModel @Inject constructor(
     // retrofit ***
     var recipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
     var searchedRecipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
+    var foodJokeResponse: MutableLiveData<NetworkResult<FoodJoke>> = MutableLiveData()
 
     fun searchRecipes(searchQueries:Map<String, String>) = viewModelScope.launch {
         searchRecipesSafeCall(searchQueries)
     }
 
-
-
     fun getRecipes(queries:Map<String, String>) = viewModelScope.launch {
         getRecipesSafeCall(queries)
+    }
+
+    fun getFoodJoke(apiKey:String)= viewModelScope.launch {
+        getFoodJokeSafeCall(apiKey)
     }
 
     private suspend fun getRecipesSafeCall(queries: Map<String, String>) {
@@ -100,6 +104,24 @@ class MainViewModel @Inject constructor(
         }
     }
 
+
+    private suspend fun getFoodJokeSafeCall(apiKey: String) {
+        foodJokeResponse.value = NetworkResult.Loading()
+
+        if(hasInternetConnection()){
+            try {
+                val response = repository.remote.getFoodJoke(apiKey);
+                foodJokeResponse.value = handleFoodJokeResponse(response)
+
+            }catch(e:Exception){
+                foodJokeResponse.value = NetworkResult.Error("Recipes not found")
+            }
+
+        }else {
+            foodJokeResponse.value = NetworkResult.Error("No Internet Connection.")
+        }
+    }
+
     private fun handleFoodRecipesResponse(response: Response<FoodRecipe>): NetworkResult<FoodRecipe>? {
         when {
             response.message().toString().contains("timeout") -> {
@@ -121,6 +143,27 @@ class MainViewModel @Inject constructor(
 
         }
     }
+
+
+    private fun handleFoodJokeResponse(response: Response<FoodJoke>): NetworkResult<FoodJoke>? {
+        return when {
+            response.message().toString().contains("timeout") -> {
+                NetworkResult.Error("Timeout")
+            }
+            response.code() === 402 -> {
+                 NetworkResult.Error("API Key Limited")
+            }
+            response.isSuccessful -> {
+                val foodJoke = response.body()
+                 NetworkResult.Success(foodJoke!!)
+            }
+            else -> {
+                 NetworkResult.Error(response.message())
+            }
+
+        }
+    }
+
 
     private fun hasInternetConnection():Boolean {
         val connectivityManager = getApplication<Application>().getSystemService(
