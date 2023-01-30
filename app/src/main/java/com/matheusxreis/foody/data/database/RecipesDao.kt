@@ -4,7 +4,6 @@ import androidx.room.*
 import com.matheusxreis.foody.data.database.entities.FavoritesEntity
 import com.matheusxreis.foody.data.database.entities.FoodJokeEntity
 import com.matheusxreis.foody.data.database.entities.RecipesEntity
-import com.matheusxreis.foody.models.FoodJoke
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -27,7 +26,7 @@ interface RecipesDao {
     fun readFavoriteRecipes():Flow<List<FavoritesEntity>>
 
     @Query("SELECT * FROM food_joke_table ORDER BY id ASC")
-    fun readFoodJoke(): Flow<List<FoodJoke>>
+    fun readFoodJoke(): Flow<List<FoodJokeEntity>>
 
     @Delete
     suspend fun deleteFavoriteRecipe(favoritesEntity: FavoritesEntity)
