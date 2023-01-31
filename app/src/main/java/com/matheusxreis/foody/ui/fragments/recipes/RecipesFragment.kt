@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -83,7 +84,7 @@ class RecipesFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener
         _binding = FragmentRecipesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.mainViewModel = mainViewModel //variable in xml
-        requireActivity().addMenuProvider(this, viewLifecycleOwner)
+        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
         setupRecyclerView()
 
         recipesViewModel.readBackOnline.observe(viewLifecycleOwner) {

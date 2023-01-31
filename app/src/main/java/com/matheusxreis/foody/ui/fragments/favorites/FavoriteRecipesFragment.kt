@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -31,7 +32,7 @@ class FavoriteRecipesFragment : Fragment(), MenuProvider {
     ): View? {
         // Inflate the layout for this fragment
 
-        requireActivity().addMenuProvider(this, viewLifecycleOwner)
+        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         _binding = FragmentFavoriteRecipesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this

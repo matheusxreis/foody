@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import com.matheusxreis.foody.R
 import com.matheusxreis.foody.databinding.FragmentFoodJokeBinding
@@ -37,7 +38,7 @@ class FoodJokeFragment : Fragment(), MenuProvider {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.mainViewModel = mainViewModel
 
-        requireActivity().addMenuProvider(this, viewLifecycleOwner)
+        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         mainViewModel.getFoodJoke(Constants.API_KEY)
 
@@ -103,4 +104,6 @@ class FoodJokeFragment : Fragment(), MenuProvider {
         }
         return true
     }
+
+
 }
