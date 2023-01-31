@@ -18,6 +18,8 @@
         tools:context=".ui.fragments.foodjoke.FoodJokeFragment">
 
         <com.google.android.material.card.MaterialCardView
+            readApiResponse3="@{mainViewModel.foodJokeResponse}"
+            readDatabase3="@{mainViewModel.readFoodJoke}"
             android:visibility="invisible"
             android:id="@+id/food_joke_card_view"
             android:layout_width="match_parent"
@@ -61,6 +63,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <ProgressBar
+            readApiResponse3="@{mainViewModel.foodJokeResponse}"
             android:id="@+id/progressBar"
             style="@android:style/Widget.ProgressBar"
             android:layout_width="wrap_content"
