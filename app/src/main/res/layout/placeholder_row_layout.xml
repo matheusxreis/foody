@@ -12,7 +12,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="200dp"
-        android:background="@color/mediumGray"
+        android:background="@color/placeholderColor"
         android:layout_height="wrap_content"
         />
 
@@ -25,7 +25,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginTop="12dp"
         android:layout_width="0dp"
-        android:background="@color/mediumGray"
+        android:background="@color/placeholderColor"
         android:layout_height="50dp"
         />
     <View
@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@id/placeholder_title"
         android:layout_marginTop="12dp"
         android:layout_width="0dp"
-        android:background="@color/mediumGray"
+        android:background="@color/placeholderColor"
         android:layout_height="65dp"
         />
 
@@ -45,7 +45,7 @@
         android:layout_height="36dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
-        android:background="@color/mediumGray"
+        android:background="@color/placeholderColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/placeholder_description"
         app:layout_constraintTop_toBottomOf="@id/placeholder_description" />
@@ -55,7 +55,7 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginStart="24dp"
-        android:background="@color/mediumGray"
+        android:background="@color/placeholderColor"
         app:layout_constraintStart_toEndOf="@id/placeholder_icon1"
         app:layout_constraintTop_toTopOf="@id/placeholder_icon1" />
 
@@ -64,7 +64,7 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_marginStart="24dp"
-        android:background="@color/mediumGray"
+        android:background="@color/placeholderColor"
         app:layout_constraintStart_toEndOf="@id/placeholder_icon2"
         app:layout_constraintTop_toTopOf="@id/placeholder_icon2" />
 
