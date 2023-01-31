@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
+    android:background="@color/cardBackgroundColor"
     tools:context=".ui.fragments.recipes.bottomsheet.RecipesBottomSheet">
 
     <TextView
@@ -18,7 +18,7 @@
         android:layout_marginStart="24dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/dark"
+        android:textColor="@color/titleColor"
         />
     <HorizontalScrollView
         android:id="@+id/scroll_view_meal_type"
@@ -158,7 +158,7 @@
         android:layout_marginStart="24dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/dark"
+        android:textColor="@color/titleColor"
         />
     <HorizontalScrollView
         android:id="@+id/scroll_view_diet_type"
@@ -251,6 +251,7 @@
         android:id="@+id/apply_button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:textColor="@color/white"
         android:text="@string/apply"
         android:textAllCaps="false"
         android:layout_marginStart="24dp"
