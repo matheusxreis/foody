@@ -90,7 +90,7 @@ class RecipesFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener
             recipesViewModel.backOnline = it
         }
 
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenStarted {
             networkListener = NetworkListener()
             networkListener.checkNetworkAvailability(requireContext())
                 .collect {
