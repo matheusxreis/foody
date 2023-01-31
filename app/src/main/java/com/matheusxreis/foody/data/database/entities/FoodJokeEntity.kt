@@ -8,7 +8,7 @@ import com.matheusxreis.foody.utils.Constants
 
 @Entity(tableName = Constants.FOOD_JOKE_TABLE)
 class FoodJokeEntity(
-    @Embedded //this notation transform props of entity as columns of table
+    @Embedded
     var foodJoke: FoodJoke
 ){
     @PrimaryKey(autoGenerate = false)
