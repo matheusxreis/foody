@@ -19,6 +19,7 @@
     <!-- LIGHT THEME -->
     <color name="backgroundColor">@color/lightGray</color>
     <color name="placeholderColor">@color/mediumGray</color>
+    <color name="itemColor">@color/dark</color>
 
     // Custom Chip Style
 
