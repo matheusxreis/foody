@@ -21,6 +21,7 @@ class RecipesRowBinding {
         @BindingAdapter("onRecipeClickListener")
         @JvmStatic
         fun onRecipeClickListener(recipeRowLayout:ConstraintLayout, result:Result){
+
             recipeRowLayout.setOnClickListener {
                 try {
                     val action = RecipesFragmentDirections.actionRecipesFragmentToDetailsActivity(
@@ -98,6 +99,12 @@ class RecipesRowBinding {
                 val desc = Jsoup.parse(description).text()
                 textView.text = desc
             }
+        }
+
+        @BindingAdapter("changeBackgroundCard")
+        @JvmStatic
+        fun changeBackgroundCard(layout: ConstraintLayout, change:Boolean){
+            layout.setBackgroundColor(ContextCompat.getColor(layout.context, R.color.cardBackgroundColor))
         }
     }
 

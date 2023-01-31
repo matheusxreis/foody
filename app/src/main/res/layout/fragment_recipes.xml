@@ -11,7 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/lightGray"
+        android:background="@color/backgroundColor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.fragments.recipes.RecipesFragment">
@@ -44,6 +44,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:tint="@color/white"
+            android:backgroundTint="@color/fabBackgroundColor"
+            android:background="@color/fabBackgroundColor"
+            app:borderWidth="0dp"
             android:focusable="true" />
 
         <ImageView
